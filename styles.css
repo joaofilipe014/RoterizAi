@@ -137,11 +137,28 @@ path.leaflet-interactive.route-transit{stroke-dasharray:4 8;animation:dash-move 
 @keyframes pulse-logo{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
 
 @media (max-width: 768px){
-  .hero h1{font-size:36px}
-  .hero p{font-size:16px}
-  .interest-grid{grid-template-columns:1fr}
-  .result-container{grid-template-columns:1fr;grid-template-rows:1fr 1fr}
+  /* Ajustes gerais */
+  .lang-switcher{top:10px;right:10px;transform:scale(.95)}
   .container{padding:20px}
+
+  /* Hero mais compacto */
+  .hero{padding-top:60px}
+  .app-logo{width:160px;height:160px}
+  .hero h1{font-size:32px}
+  .hero p{font-size:15px}
+
+  /* Seleção em coluna única */
+  .interest-grid{grid-template-columns:1fr}
+
+  /* Resultado em 2 linhas com mapa maior */
+  .result-container{grid-template-columns:1fr;grid-template-rows:1.2fr 1.8fr}
+  #map{min-height:40vh}
+
+  /* Mode switch mais compacto, esconder labels */
+  .mode-switch{gap:6px}
+  .mode-btn{padding:6px 8px}
+  .mode-label{display:none}
+
   /* Esconder alguns emojis para evitar sobreposição no mobile */
   .hero-bg-emoji:nth-child(7),
   .hero-bg-emoji:nth-child(8){display:none}
