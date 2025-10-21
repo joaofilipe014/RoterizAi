@@ -1,0 +1,68 @@
+[
+  {
+    "id": "calcadao-londrina",
+    "nome": "Calçadão de Londrina",
+    "cidade": "londrina",
+    "categoria": "turismo",
+    "lat": -23.31089,
+    "lng": -51.16201,
+    "duracaoMin": 45,
+    "horario": "Livre - comércio em horário comercial",
+    "tags": ["centro", "lojas", "passeio"]
+  },
+  {
+    "id": "lago-igapo",
+    "nome": "Lago Igapó",
+    "cidade": "londrina",
+    "categoria": "parque",
+    "lat": -23.31700,
+    "lng": -51.17780,
+    "duracaoMin": 60,
+    "horario": "Livre",
+    "tags": ["natureza", "caminhada", "bike"]
+  },
+  {
+    "id": "jardim-botanico",
+    "nome": "Jardim Botânico de Londrina",
+    "cidade": "londrina",
+    "categoria": "turismo",
+    "lat": -23.32455,
+    "lng": -51.17881,
+    "duracaoMin": 90,
+    "horario": "Ter-Dom 9h-17h",
+    "tags": ["natureza", "familia"]
+  },
+  {
+    "id": "catedral-metropolitana",
+    "nome": "Catedral Metropolitana de Londrina",
+    "cidade": "londrina",
+    "categoria": "turismo",
+    "lat": -23.30983,
+    "lng": -51.16272,
+    "duracaoMin": 30,
+    "horario": "Conferir missas",
+    "tags": ["arquitetura", "historia"]
+  },
+  {
+    "id": "boulevard-londrina",
+    "nome": "Boulevard Londrina Shopping",
+    "cidade": "londrina",
+    "categoria": "diversao",
+    "lat": -23.33326,
+    "lng": -51.16738,
+    "duracaoMin": 120,
+    "horario": "Diariamente 10h-22h",
+    "tags": ["compras", "cinema", "alimentacao"]
+  },
+  {
+    "id": "rest-dona-branca",
+    "nome": "Restaurante Dona Branca",
+    "cidade": "londrina",
+    "categoria": "restaurante",
+    "lat": -23.31179,
+    "lng": -51.16195,
+    "duracaoMin": 60,
+    "horario": "Almoço/Jantar",
+    "tags": ["comida-brasileira"]
+  }
+]

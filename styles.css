@@ -1,0 +1,148 @@
+*{box-sizing:border-box}
+:root{--bg:#f8f9fb;--fg:#0f172a;--muted:#64748b;--brand:#2563eb;--brand-2:#3b82f6;--brand-grad-1:#667eea;--brand-grad-2:#764ba2;--card:#ffffff;--line:#e5e7eb}
+html,body{height:100%;margin:0;font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Ubuntu,Cantarell,'Noto Sans',sans-serif;color:#0f172a;background:linear-gradient(135deg,var(--brand-grad-1) 0%,var(--brand-grad-2) 100%);overflow-x:hidden}
+/* Padrão sutil para evitar áreas vazias */
+body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(rgba(255,255,255,.07) 1px, transparent 1.5px);background-size:22px 22px;pointer-events:none;z-index:0}
+/* Brilho suave no rodapé para dar profundidade */
+body::after{content:"";position:fixed;left:-10%;right:-10%;bottom:-25%;height:50vh;background:radial-gradient(ellipse at center, rgba(255,255,255,.06), transparent 60%);pointer-events:none;z-index:0}
+
+/* Language switcher */
+.lang-switcher{position:fixed;top:20px;right:20px;z-index:9999;display:block}
+.lang-switcher select{padding:8px 12px;border:2px solid rgba(255,255,255,.3);border-radius:8px;background:rgba(255,255,255,.2);color:#fff;font-weight:600;cursor:pointer;backdrop-filter:blur(10px);transition:all .3s}
+.lang-switcher select:hover{background:rgba(255,255,255,.35);border-color:rgba(255,255,255,.5)}
+.lang-switcher select option{background:#fff;color:#0f172a}
+
+/* Sistema de telas */
+.screen{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .4s ease, visibility .4s;z-index:1}
+.screen.active{opacity:1;visibility:visible}
+
+/* TELA 1: Inicial/Hero */
+.hero{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;text-align:center;color:#fff;padding:20px;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 50%, rgba(255,255,255,.1) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255,255,255,.08) 0%, transparent 50%);pointer-events:none}
+
+/* Emojis de fundo animados */
+.hero-bg-emoji{position:absolute;font-size:64px;opacity:.12;animation:float-emoji 20s infinite ease-in-out;pointer-events:none;user-select:none}
+/* Distribuição espaçada para evitar sobreposição */
+.hero-bg-emoji:nth-child(1){top:6%;left:6%;transform:scale(1);animation-delay:0s;animation-duration:25s}
+.hero-bg-emoji:nth-child(2){top:10%;right:8%;transform:scale(1.15);animation-delay:3s;animation-duration:22s}
+.hero-bg-emoji:nth-child(3){bottom:10%;left:8%;transform:scale(1.1);animation-delay:5s;animation-duration:28s}
+.hero-bg-emoji:nth-child(4){bottom:12%;right:6%;transform:scale(0.95);animation-delay:7s;animation-duration:24s}
+.hero-bg-emoji:nth-child(5){top:46%;left:12%;transform:scale(1.05);animation-delay:2s;animation-duration:26s}
+.hero-bg-emoji:nth-child(6){top:60%;right:12%;transform:scale(1);animation-delay:4s;animation-duration:23s}
+.hero-bg-emoji:nth-child(7){top:32%;left:44%;transform:scale(0.9);animation-delay:6s;animation-duration:27s}
+.hero-bg-emoji:nth-child(8){bottom:36%;right:38%;transform:scale(1.1);animation-delay:8s;animation-duration:21s}
+
+.app-logo{position:relative;z-index:10;width:200px;height:200px;object-fit:contain;border-radius:50px;margin-bottom:24px;filter:drop-shadow(0 12px 28px rgba(0,0,0,.3));animation:pulse-logo 3s infinite ease-in-out}
+.hero h1{position:relative;z-index:10;font-size:48px;margin:0 0 14px;font-weight:700;text-shadow:0 4px 12px rgba(0,0,0,.2)}
+.hero p{position:relative;z-index:10;font-size:18px;margin:0 0 28px;opacity:.95;max-width:600px;line-height:1.45;text-shadow:0 2px 8px rgba(0,0,0,.15)}
+.hero .btn-primary{position:relative;z-index:10}
+
+/* TELA 2: Seleção */
+.container{max-width:700px;margin:0 auto;padding:40px 20px;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+.container h2{font-size:26px;color:#fff;text-align:center;margin:0 0 6px;display:flex;align-items:center;justify-content:center;gap:10px}
+.subtitle{text-align:center;color:#ffffffcc;margin:0 0 28px;font-size:14px}
+
+.selection-card{background:#fff;border-radius:16px;padding:20px;margin-bottom:18px;box-shadow:0 12px 36px rgba(0,0,0,.18)}
+.selection-card h3{margin:0 0 14px;font-size:18px;display:flex;align-items:center;gap:8px}
+.selection-card h3 i{color:var(--brand)}
+
+.interest-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.interest-item{position:relative;cursor:pointer}
+.interest-item input{position:absolute;opacity:0}
+.interest-content{border:2px solid var(--line);border-radius:14px;padding:16px 12px;text-align:center;background:#fff;transition:all .3s}
+.interest-content i{font-size:26px;color:var(--muted);display:block;margin-bottom:8px;transition:color .3s}
+.interest-content span{font-weight:500;font-size:13px}
+.interest-item input:checked + .interest-content{border-color:var(--brand);background:linear-gradient(135deg,#eef4ff,#f8fbff)}
+.interest-item input:checked + .interest-content i{color:var(--brand);transform:scale(1.1)}
+.interest-content:hover{border-color:var(--brand-2);transform:translateY(-2px)}
+
+.time-selector{text-align:center}
+.time-selector input[type="range"]{width:100%;height:8px;border-radius:999px;background:var(--line);outline:none;-webkit-appearance:none;appearance:none}
+.time-selector input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:24px;height:24px;border-radius:50%;background:var(--brand);cursor:pointer;box-shadow:0 2px 8px rgba(37,99,235,.3)}
+.time-selector input[type="range"]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:var(--brand);cursor:pointer;border:none;box-shadow:0 2px 8px rgba(37,99,235,.3)}
+.time-display{margin-top:12px;font-size:22px;font-weight:600;color:var(--brand)}
+
+/* TELA 3: Resultado */
+.result-header{background:#fff;padding:16px 20px;display:flex;align-items:center;gap:16px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.result-header h2{margin:0;font-size:18px;flex:1}
+.btn-back{background:transparent;border:none;font-size:20px;cursor:pointer;color:var(--brand);padding:8px}
+.btn-back:hover{transform:scale(1.1)}
+.travel-controls{display:flex;gap:10px;align-items:center}
+.travel-controls select{padding:8px 10px;border:1px solid var(--line);border-radius:8px}
+
+/* Acessibilidade */
+.visually-hidden{position:absolute !important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* Botões de modo de transporte */
+.mode-switch{display:flex;gap:8px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:4px}
+.mode-btn{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border:none;border-radius:8px;background:transparent;color:#334155;cursor:pointer;font-weight:600;transition:all .2s}
+.mode-btn i{color:#64748b}
+.mode-btn:hover{background:#f1f5f9}
+.mode-btn.active{background:linear-gradient(135deg,var(--brand-grad-1),var(--brand-grad-2));color:#fff}
+.mode-btn.active i{color:#fff}
+.mode-label{font-size:12px}
+.mode-btn:focus{outline:2px solid var(--brand);outline-offset:2px}
+
+/* Animações de rotas por modo */
+@keyframes dash-move{from{stroke-dashoffset:0}to{stroke-dashoffset:1000}}
+@keyframes glow-pulse{0%,100%{filter:drop-shadow(0 0 0 rgba(37,99,235,.0))}50%{filter:drop-shadow(0 0 8px rgba(37,99,235,.6))}}
+
+/* As linhas geradas pela LRM recebem className configurável (aplica no .leaflet-interactive) */
+path.leaflet-interactive.route-car{animation:glow-pulse 3s ease-in-out infinite}
+path.leaflet-interactive.route-uber{filter:drop-shadow(0 0 8px rgba(147,51,234,.7))}
+path.leaflet-interactive.route-foot{stroke-dasharray:8 8;animation:dash-move 12s linear infinite}
+path.leaflet-interactive.route-transit{stroke-dasharray:4 8;animation:dash-move 6s linear infinite}
+
+.result-container{display:grid;grid-template-columns:400px 1fr;height:calc(100vh - 70px);align-items:stretch}
+.result-sidebar{background:#f9fafb;padding:20px;overflow:auto}
+.result-map{position:relative;transition:max-height .3s ease, opacity .3s ease;display:flex;flex-direction:column}
+.result-map.hidden{max-height:0;opacity:0;overflow:hidden}
+.mini-map-header{display:flex;align-items:center;justify-content:space-between;background:#fff;border-bottom:1px solid var(--line);padding:8px 12px}
+.mini-map-title{font-weight:600;color:#334155}
+.mini-map-actions{display:flex;gap:8px}
+.resumo-viagem{margin-top:12px;background:#fff;border-radius:10px;padding:10px;box-shadow:0 2px 8px rgba(0,0,0,.06);border-left:4px solid var(--brand);font-size:13px}
+.instrucoes{margin-top:12px;background:#fff;border-radius:10px;padding:10px;box-shadow:0 2px 8px rgba(0,0,0,.06);font-size:13px}
+.instrucoes h3{margin:0 0 10px;font-size:16px}
+.instrucoes ol{margin:0;padding-left:18px}
+.route-actions{margin-top:16px;display:flex;justify-content:center}
+.tracking{margin-top:12px;background:#fff;border-radius:10px;padding:10px;box-shadow:0 2px 8px rgba(0,0,0,.06);font-size:13px}
+.tracking h3{margin:0 0 8px;font-size:16px}
+.track-controls{display:flex;gap:10px;margin-top:10px}
+.tracking .done{color:#16a34a}
+.tracking .next{color:#2563eb}
+
+.loading-state{text-align:center;padding:40px;color:var(--muted)}
+.loading-state i{font-size:28px;margin-bottom:12px;display:block}
+
+.lista-roteiro{list-style:none;padding:0;margin:0}
+.lista-roteiro li{background:#fff;border-radius:10px;padding:12px;margin-bottom:12px;box-shadow:0 2px 10px rgba(0,0,0,.06);border-left:4px solid var(--brand)}
+.lista-roteiro .titulo{font-weight:600;font-size:14px;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.lista-roteiro .descricao{color:var(--muted);font-size:12px;line-height:1.4}
+
+#map{width:100%;height:auto;flex:1 1 auto;min-height:0;border:none}
+
+/* Botões */
+.btn-primary,.btn-secondary{padding:12px 20px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px;transition:all .3s}
+.btn-primary{background:linear-gradient(135deg,var(--brand-grad-1),var(--brand-grad-2));color:#fff;box-shadow:0 8px 24px rgba(102,126,234,.4)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(102,126,234,.5)}
+.btn-secondary{background:#fff;color:var(--brand);border:2px solid var(--brand)}
+.btn-secondary:hover{background:var(--brand);color:#fff}
+.btn-secondary:disabled{opacity:.5;cursor:not-allowed;filter:grayscale(0.1)}
+
+.actions-nav{display:flex;gap:16px;justify-content:center;margin-top:40px}
+
+.app-footer{padding:16px 20px;border-top:1px solid var(--line);background:var(--card);color:var(--muted);text-align:center;font-size:13px}
+
+@keyframes float-emoji{0%,100%{transform:translateY(0) rotate(0deg);opacity:.12}25%{transform:translateY(-30px) rotate(5deg);opacity:.18}50%{transform:translateY(-15px) rotate(-3deg);opacity:.15}75%{transform:translateY(-25px) rotate(4deg);opacity:.2}}
+@keyframes pulse-logo{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+
+@media (max-width: 768px){
+  .hero h1{font-size:36px}
+  .hero p{font-size:16px}
+  .interest-grid{grid-template-columns:1fr}
+  .result-container{grid-template-columns:1fr;grid-template-rows:1fr 1fr}
+  .container{padding:20px}
+  /* Esconder alguns emojis para evitar sobreposição no mobile */
+  .hero-bg-emoji:nth-child(7),
+  .hero-bg-emoji:nth-child(8){display:none}
+}

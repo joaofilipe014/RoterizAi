@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RoterizAI</title>
+    <link rel="icon" href="logo.png">
+
+    <!-- Leaflet -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+    <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.min.js"></script>
+  <script src="https://unpkg.com/leaflet-polylinedecorator@1.7.0/dist/leaflet.polylineDecorator.min.js"></script>
+
+    <!-- Fonts & Styles -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+      <!-- Language switcher -->
+      <div class="lang-switcher">
+        <select id="langSelect">
+          <option value="pt">🇧🇷 PT</option>
+          <option value="en">🇺🇸 EN</option>
+          <option value="es">🇪🇸 ES</option>
+        </select>
+      </div>
+
+      <!-- TELA 1: Inicial -->
+      <section id="telaInicial" class="screen active">
+        <div class="hero">
+          <!-- Emojis de fundo animados -->
+          <div class="hero-bg-emoji">📍</div>
+          <div class="hero-bg-emoji">🗺️</div>
+          <div class="hero-bg-emoji">🏛️</div>
+          <div class="hero-bg-emoji">🌳</div>
+          <div class="hero-bg-emoji">🍽️</div>
+          <div class="hero-bg-emoji">🎡</div>
+          <div class="hero-bg-emoji">🧭</div>
+          <div class="hero-bg-emoji">✈️</div>
+          
+          <img src="logo.png" alt="RoterizAI" class="app-logo" />
+          <h1 data-i18n="app.name">RoterizAI</h1>
+          <p data-i18n="hero.subtitle">Descubra Londrina em um roteiro personalizado</p>
+          <button class="btn-primary" onclick="app.goToScreen('telaSelecao')">
+            <i class="fas fa-compass"></i> <span data-i18n="hero.cta">Montar meu roteiro</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- TELA 2: Seleção -->
+      <section id="telaSelecao" class="screen">
+        <div class="container">
+          <h2><i class="fas fa-sliders-h"></i> <span data-i18n="selection.title">Suas Preferências</span></h2>
+          <p class="subtitle" data-i18n="selection.subtitle">Escolha seus interesses e quanto tempo você tem disponível</p>
+        
+          <div class="selection-card">
+            <h3><i class="fas fa-heart"></i> <span data-i18n="selection.likes">O que você gosta?</span></h3>
+            <div class="interest-grid">
+              <label class="interest-item">
+                <input type="checkbox" name="interesse" value="cultura" checked />
+                <div class="interest-content">
+                  <i class="fas fa-landmark"></i>
+                  <span data-i18n="interest.culture">Cultura e História</span>
+                </div>
+              </label>
+              <label class="interest-item">
+                <input type="checkbox" name="interesse" value="natureza" checked />
+                <div class="interest-content">
+                  <i class="fas fa-tree"></i>
+                  <span data-i18n="interest.nature">Natureza e Parques</span>
+                </div>
+              </label>
+              <label class="interest-item">
+                <input type="checkbox" name="interesse" value="gastronomia" checked />
+                <div class="interest-content">
+                  <i class="fas fa-utensils"></i>
+                  <span data-i18n="interest.food">Gastronomia</span>
+                </div>
+              </label>
+              <label class="interest-item">
+                <input type="checkbox" name="interesse" value="diversao" checked />
+                <div class="interest-content">
+                  <i class="fas fa-dice"></i>
+                  <span data-i18n="interest.fun">Diversão e Lazer</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div class="selection-card">
+            <h3><i class="fas fa-clock"></i> <span data-i18n="selection.time">Quanto tempo você tem?</span></h3>
+            <div class="time-selector">
+              <input type="range" id="tempoSlider" min="2" max="12" value="6" step="1" />
+              <div class="time-display">
+                <span id="tempoValor">6</span> <span data-i18n="time.hours">horas</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="actions-nav">
+            <button class="btn-secondary" onclick="app.goToScreen('telaInicial')">
+              <i class="fas fa-arrow-left"></i> <span data-i18n="common.back">Voltar</span>
+            </button>
+            <button class="btn-primary" onclick="app.gerarRoteiro()">
+              <i class="fas fa-magic"></i> <span data-i18n="selection.generate">Gerar Roteiro</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- TELA 3: Resultado -->
+      <section id="telaResultado" class="screen">
+        <div class="result-header">
+          <button class="btn-back" onclick="app.goToScreen('telaSelecao')">
+            <i class="fas fa-arrow-left"></i>
+          </button>
+          <h2 id="tituloRoteiro" data-i18n="result.title">Seu Roteiro Personalizado</h2>
+          <div class="travel-controls">
+            <div class="mode-switch" role="tablist" aria-label="Modo de transporte">
+              <button class="mode-btn active" data-mode="car" role="tab" aria-selected="true" title="Carro"><i class="fas fa-car"></i><span class="mode-label" data-i18n="mode.car">Carro</span></button>
+              <button class="mode-btn" data-mode="uber" role="tab" aria-selected="false" title="Uber"><i class="fas fa-taxi"></i><span class="mode-label" data-i18n="mode.uber">Uber</span></button>
+              <button class="mode-btn" data-mode="foot" role="tab" aria-selected="false" title="A pé"><i class="fas fa-person-walking"></i><span class="mode-label" data-i18n="mode.foot">A pé</span></button>
+              <button class="mode-btn" data-mode="transit" role="tab" aria-selected="false" title="Ônibus"><i class="fas fa-bus"></i><span class="mode-label" data-i18n="mode.transit">Ônibus</span></button>
+            </div>
+            <select id="modoTransporte" class="visually-hidden" aria-hidden="true">
+              <option value="car" data-i18n="mode.car">Carro</option>
+              <option value="uber" data-i18n="mode.uber">Uber</option>
+              <option value="foot" data-i18n="mode.foot">A pé</option>
+              <option value="transit" data-i18n="mode.transit">Ônibus</option>
+            </select>
+            <button class="btn-secondary" id="btnUsarLocalizacao"><i class="fas fa-location-crosshairs"></i> <span data-i18n="result.myLocation">Minha localização</span></button>
+            <button class="btn-secondary" id="btnDefinirPartida"><i class="fas fa-location-dot"></i> <span data-i18n="result.pickOnMap">Definir no mapa</span></button>
+          </div>
+        </div>
+      
+        <div class="result-container">
+          <div class="result-sidebar">
+            <div id="loadingState" class="loading-state">
+              <i class="fas fa-spinner fa-spin"></i> <span data-i18n="result.loading">Montando seu roteiro...</span>
+            </div>
+            <div id="listaRoteiro" class="lista-roteiro"></div>
+            <div class="resumo-viagem" id="resumoViagem"></div>
+            <div class="instrucoes" id="instrucoesRota"></div>
+            <div class="route-actions" id="routeActions" style="display:none">
+              <button class="btn-secondary" id="btnConfirmarPlano"><i class="fas fa-check-double"></i> <span data-i18n="result.confirmPlan">Confirmar plano</span></button>
+              <button class="btn-primary" id="btnAceitarRota"><i class="fas fa-check"></i> <span data-i18n="result.accept">Aceitar rota</span></button>
+            </div>
+            <div class="tracking" id="painelAcompanhamento" style="display:none">
+              <h3 data-i18n="tracking.title">Status do roteiro</h3>
+              <div id="statusRoteiro"></div>
+              <div class="track-controls">
+                <button class="btn-secondary" id="btnProximaParada"><i class="fas fa-forward"></i> <span data-i18n="tracking.next">Próxima parada</span></button>
+                <button class="btn-secondary" id="btnEncerrar"><i class="fas fa-flag-checkered"></i> <span data-i18n="tracking.finish">Encerrar</span></button>
+              </div>
+            </div>
+          </div>
+        
+          <div class="result-map" id="resultMapContainer">
+            <div class="mini-map-header">
+              <span class="mini-map-title" data-i18n="map.title">Mapa</span>
+              <div class="mini-map-actions">
+                <button class="btn-secondary" id="btnExpandirMapa"><i class="fas fa-up-right-and-down-left-from-center"></i> <span data-i18n="map.expand">Expandir</span></button>
+                <button class="btn-secondary" id="btnMinimizarMapa"><i class="fas fa-down-left-and-up-right-to-center"></i> <span data-i18n="map.minimize">Minimizar</span></button>
+              </div>
+            </div>
+            <div id="map"></div>
+          </div>
+    </div>
+
+    <footer class="app-footer">
+      <small data-i18n="footer">Dados dos pontos são aproximados e servem como referência. Rotas por OSRM; links para Google Maps e Uber para conferência.</small>
+    </footer>
+
+    <script>
+      // Extrai uma cor média da logo e ajusta a paleta do app dinamicamente
+      (function(){
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.src = 'logo.png';
+        img.onload = function(){
+          try{
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width = 64, h = canvas.height = 64;
+            ctx.drawImage(img, 0, 0, w, h);
+            const data = ctx.getImageData(0,0,w,h).data;
+            let r=0,g=0,b=0,count=0;
+            for(let i=0;i<data.length;i+=4){
+              const a = data[i+3];
+              if(a<128) continue;
+              r+=data[i]; g+=data[i+1]; b+=data[i+2]; count++;
+            }
+            if(count){
+              r=Math.round(r/count); g=Math.round(g/count); b=Math.round(b/count);
+              const brand = `rgb(${r}, ${g}, ${b})`;
+              // criar variação secundária um pouco mais clara
+              const lighten = (c)=> Math.min(255, Math.round(c*1.15));
+              const brand2 = `rgb(${lighten(r)}, ${lighten(g)}, ${lighten(b)})`;
+              // gradiente baseado na cor média e uma versão mais escura
+              const darken = (c)=> Math.max(0, Math.round(c*0.7));
+              const grad1 = brand2;
+              const grad2 = `rgb(${darken(r)}, ${darken(g)}, ${darken(b)})`;
+              const root = document.documentElement;
+              root.style.setProperty('--brand', brand);
+              root.style.setProperty('--brand-2', brand2);
+              root.style.setProperty('--brand-grad-1', grad1);
+              root.style.setProperty('--brand-grad-2', grad2);
+            }
+          }catch(e){ /* ignora se canvas estiver bloqueado */ }
+        };
+      })();
+    </script>
+    <script src="assets/js/app.js"></script>
+  </body>
+  </html>
