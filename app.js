@@ -302,7 +302,7 @@ const app = {
   },
 
   async loadPOIs() {
-    const res = await fetch('assets/data/pois.json');
+    const res = await fetch('pois.json');
     this.pois = await res.json();
   },
 
